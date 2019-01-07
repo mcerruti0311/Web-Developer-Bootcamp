@@ -1,0 +1,9 @@
+SELECT Id, Job_Name__c, Division__c, Department__c, Approver_For_Expenses__r.Name, Master_Approver_For_Expenses__r.Name, Client_Account__r.SIS_Responsible_Manager__r.Name
+FROM Location_Data__c
+WHERE Id In (SELECT Location_Data__c FROM Client_Invoices__c WHERE (CALENDAR_YEAR(Service_End_Date__c) = 2018 or Service_End_Date__c = null))
+AND RecordType.Name = 'Parent Location'
+AND Inactivate_Code__c = false
+AND VOID__c = false
+AND (End_Date__c = null or End_Date__c > Today)
+AND Division__c NOT IN ('')
+ORDER BY Job_Name__c
